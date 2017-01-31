@@ -50,7 +50,7 @@ func detectRedhat(c config.ServerInfo) (itsMe bool, red osTypeInterface) {
 
 	if r := exec(c, "ls /etc/fedora-release", noSudo); r.isSuccess() {
 		red.setDistro("fedora", "unknown")
-		Log.Warn("Fedora not tested yet: %s", r)
+		util.Log.Warn("Fedora not tested yet: %s", r)
 		return true, red
 	}
 
@@ -63,7 +63,7 @@ func detectRedhat(c config.ServerInfo) (itsMe bool, red osTypeInterface) {
 			re := regexp.MustCompile(`(.*) release (\d[\d.]*)`)
 			result := re.FindStringSubmatch(strings.TrimSpace(r.Stdout))
 			if len(result) != 3 {
-				Log.Warn("Failed to parse RedHat/CentOS version: %s", r)
+				util.Log.Warn("Failed to parse RedHat/CentOS version: %s", r)
 				return true, red
 			}
 
@@ -92,7 +92,7 @@ func detectRedhat(c config.ServerInfo) (itsMe bool, red osTypeInterface) {
 		return true, red
 	}
 
-	Log.Debugf("Not RedHat like Linux. servername: %s", c.ServerName)
+	util.Log.Debugf("Not RedHat like Linux. servername: %s", c.ServerName)
 	return false, red
 }
 

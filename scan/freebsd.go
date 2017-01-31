@@ -55,7 +55,7 @@ func detectFreebsd(c config.ServerInfo) (itsMe bool, bsd osTypeInterface) {
 			}
 		}
 	}
-	Log.Debugf("Not FreeBSD. servernam: %s", c.ServerName)
+	util.Log.Debugf("Not FreeBSD. servernam: %s", c.ServerName)
 	return false, bsd
 }
 

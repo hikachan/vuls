@@ -198,24 +198,25 @@ func (l *base) parseLxdPs(stdout string) (containers []config.Container, err err
 	return
 }
 
-func (l *base) detectPlatform() error {
+func (l *base) detectPlatform() {
 	ok, instanceID, err := l.detectRunningOnAws()
 	if err != nil {
-		return err
+		l.log.Warn(err)
+		return
 	}
 	if ok {
 		l.setPlatform(models.Platform{
 			Name:       "aws",
 			InstanceID: instanceID,
 		})
-		return nil
+		return
 	}
 
 	//TODO Azure, GCP...
 	l.setPlatform(models.Platform{
 		Name: "other",
 	})
-	return nil
+	return
 }
 
 func (l base) detectRunningOnAws() (ok bool, instanceID string, err error) {
